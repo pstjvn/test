@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Mobile TV</title>
+    <meta content="width=device-width, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <style>
+      html, body, #container {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #top {
+        height: 50%;
+        width: 100%;
+        background-color: red;
+      }
+      #bottom {
+        height: 50%;
+        width: 100%;
+        background-color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+  <div id="container">
+    <div id="top"></div>
+    <div id="bottom"></div>
+  </div>
+  <script>
+    function s(e) {
+      console.log('eee');
+      e.stopPropagation();
+      console.log(e.target);
+    }
+    window.addEventListener('load', function() {
+      console.log('loaded')
+      // document.querySelector('#container').addEventListener('touchstart', s);
+      document.querySelector('#bottom').addEventListener('touchstart', s);
+      document.querySelector('#bottom').addEventListener('touchmove', s);
+
+      // document.querySelector('#top').addEventListener('touchstart', s);
+    });
+  </script>
+  </body>
+</html>
