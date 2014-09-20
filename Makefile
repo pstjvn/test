@@ -351,11 +351,15 @@ compact: advanced
 	node ../../node/inline.js $(NS)-deploy.html
 	@echo 'Done'
 
+# For the heck no need to build the file list, just use only closure and it will spill out
+# the errors.
 check: js/** ../pstj/*/**.js ../smjs/*/**.js
 	$(COMPILER) \
 	--compilation_level=ADVANCED \
 	--js="$(BUILDDIR)/cssmap-build.js"  \
-	--js_output_file=/dev/null
+	--js_output_file=/dev/null \
+	--only_closure_dependencies \
+	$(JSSOURCES)
 	@echo 'Done'
 
 checkall: .linted .pstjlint .smjslint check
