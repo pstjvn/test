@@ -55,7 +55,7 @@ TEMPLATE_TMP_DIR=tpl/
 # The sources of the templates.
 TEMPLATES_SOURCE_DIR=templates/
 
-# common libs
+# common library paths
 PSTJ=../pstj/
 SMJS=../smjs/
 GCW=../gcw/
@@ -78,7 +78,7 @@ MESSAGE_EXTRACTOR_JAR=../../templates/SoyMsgExtractor.jar
 STYLES_COMPILER_JAR=../../stylesheets/closure-stylesheets.jar
 
 EXTERNS_PATH=../../externs/
-CLOSURE_BUILDER ?= ../../library/closure/bin/build/closurebuilder.py
+CLOSURE_BUILDER=$(LIBRARY_PATH)closure/bin/build/closurebuilder.py
 
 
 # Inlude for all javascript sources we know of. Note that the compiler will
@@ -96,6 +96,25 @@ define JSSOURCES
 --js="../../library/third_party/closure/goog/mochikit/async/deferredlist.js"
 endef
 
+# Following definitions are used only by the closure builder script.
+# We use it instead of the closure compiler to produce filelist for the
+# compiler to build from as the former works much faster.
+define JSROOTS
+--root=js/ \
+--root=$(TEMPLATE_TMP_DIR)/$(LOCALE)/ \
+--root=$(PSTJ) \
+--root=$(SMJS) \
+--root=$(TEMPLATES_PATH) \
+--root=$(LIBRARY_PATH)
+endef
+
+define JSDEPS
+-f --js=build/deps.js \
+-f --js=$(TEMPLATES_PATH)/deps.js \
+-f --js=$(PSTJ)/deps.js \
+-f --js=$(SMJS)/deps.js \
+-f --js=$(GCW)/deps.js
+endef
 
 # Define all templates possible to be used.
 TERMPLATES_SOURCES = templates/*.soy ../pstj/templates/*.soy ../smjs/templates/*.soy
@@ -123,10 +142,7 @@ $(JSSOURCES)
 endef
 
 define GITIGNOREFILE
-build/
-$(TEMPLATE_TMP_DIR)
-help/
-*sublime-*
+build/ $(TEMPLATE_TMP_DIR) help/ *sublime-*
 endef
 
 # The file list for actual compilation. Note that because the compiler now
@@ -137,6 +153,7 @@ endef
 # first generate a list of files to include (with only closire deps) and then we
 # use that file list plus the css map
 FL=`cat $(BUILDDIR)/filelist.txt | tr '\n' ' '`
+
 
 
 ################################################################################
@@ -160,6 +177,8 @@ all: $(BUILDDIR)/$(NS)-cssmap.js $(BUILDDIR)/deps.js .pstjdeps .smjsdeps
 ################################################################################
 # CHECK JS VALIDITY
 
+gitignore:
+	echo '$(GITIGNOREFILE)' | tr ' ' '\n' > .gitignore
 
 # same as above but also build deps in local project
 commit: $(BUILDDIR)/deps.js check
@@ -339,12 +358,17 @@ debug: $(BUILDDIR)/$(NS).debug.js
 # Set target specific variables (output file name and compilation level)
 $(BUILDDIR)/filelist.txt: js/** tpl/$(LOCALE)/*.js ../pstj/*/**.js
 	@echo -n 'Compiling list of files for modules...'
-	$(FILELISTER) \
-	--compilation_level=ADVANCED \
-	--only_closure_dependencies \
-	--output_manifest %outname% \
-	--js_output_file=$(BUILDDIR)/filelist.txt
-	@echo 'Done'
+	@$(CLOSURE_BUILDER) -n $(NS) \
+	$(JSROOTS) $(JSDEPS) \
+	-o list \
+	--output_file=$(BUILDDIR)/filelist.txt
+	@echo 'Done building filelist'
+
+
+# $(FILELISTER) \
+# --only_closure_dependencies \
+# --output_manifest=$(BUILDDIR)/filelist.txt
+# @echo 'Done'
 
 compact: advanced
 	@echo -n 'Inlining resources in main html file...'
