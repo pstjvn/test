@@ -3,10 +3,8 @@
 
 // Import the defaults from libraies
 
-@import "../../pstj/less/ng-cloak";
 @import "../../pstj/less/reset";
-@import "../../pstj/less/material/drawerpanel";
-@import "../../pstj/less/button";
+@import "../../pstj/less/material/headerpanel";
 
 
 // Disable focus outline (Android)
@@ -25,23 +23,10 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-spiner {
-  display: block;
-  width: 200px;
-  height: 200px;
-  background-color: red;
+.header-content {
+  height: 60px;
 }
 
-
-// tests
-.drawer-panel-main {
-  background-color: red;
-}
-
-.drawer-panel-drawer {
-  background-color: yellow;
-}
-
-.pstj-button {
-  .pstj-button();
+.header-content.header-panel-tall {
+  height: 120px;
 }

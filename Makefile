@@ -237,7 +237,7 @@ $(TEMPLATE_TMP_DIR)/$(LOCALE)/$(NS).soy.js: $(tplbuilddeps)
 
 # Builds the dependency file. Note that the file depends on the templates built
 # from the soy files in the project only. See above rule for details.
-depsdeps = js/** $(TEMPLATE_TMP_DIR)/$(LOCALE)/$(NS).soy.js
+depsdeps = js/* $(TEMPLATE_TMP_DIR)/$(LOCALE)/$(NS).soy.js
 $(BUILDDIR)/deps.js: $(depsdeps)
 	@echo -n 'Constructing project dependencies..'
 	@python $(DEPSWRITER_BIN) \
@@ -261,7 +261,7 @@ $(I18NDIR)/translations_$(LOCALE).xlf: $(TERMPLATES_SOURCES)
 # possible files we might use even if we not really use them (as those might not
 # be imported in the app less file.
 # List of static files that are dependencies.
-lesssourcess = less/$(NS).less less/$(NS)/*.less ../smjs/less/*.less ../pstj/less/**.less
+lesssourcess = less/$(NS).less less/$(NS)/*.less ../smjs/less/*.less ../pstj/less/*/*.less
 less/$(NS).css: $(lesssourcess)
 	@echo -n 'Building CSS from LESS...'
 	lessc --no-ie-compat less/$(NS).less > less/$(NS).css
@@ -381,7 +381,7 @@ check: js/** ../pstj/*/**.js ../smjs/*/**.js
 	$(COMPILER) \
 	--compilation_level=ADVANCED \
 	--js="$(BUILDDIR)/cssmap-build.js"  \
-	--js_output_file=/dev/null \
+	--js_output_file=/tmp/check.js \
 	--only_closure_dependencies \
 	$(JSSOURCES)
 	@echo 'Done'
