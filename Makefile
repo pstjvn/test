@@ -192,6 +192,7 @@ lintdeps = js/**.js
 	@gjslint \
 	--jslint_error=all \
 	--strict \
+	--disable 0251 \
 	--max_line_length 80 \
 	-e "vendor,tpl" \
 	$(LINTFLAGS) \
@@ -202,6 +203,7 @@ lintdeps = js/**.js
 	@gjslint \
 	--jslint_error=all \
 	--strict \
+	--disable 0251 \
 	--max_line_length 80 \
 	-e "vendor,tpl" \
 	$(LINTFLAGS) \
@@ -212,6 +214,7 @@ lintdeps = js/**.js
 	@gjslint \
 	--jslint_error=all \
 	--strict \
+	--disable 0251 \
 	--max_line_length 80 \
 	-e "vendor,tpl" \
 	$(LINTFLAGS) \
@@ -377,7 +380,7 @@ compact: advanced
 
 # For the heck no need to build the file list, just use only closure and it will spill out
 # the errors.
-check: js/** ../pstj/*/**.js ../smjs/*/**.js
+check: js/** ../pstj/*/**.js ../smjs/*/**.js $(BUILDDIR)/cssmap-build.js
 	$(COMPILER) \
 	--compilation_level=ADVANCED \
 	--js="$(BUILDDIR)/cssmap-build.js"  \
