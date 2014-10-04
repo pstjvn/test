@@ -1,2 +1,14 @@
 {namespace app.template}
 
+/** Test template for the Test element in material design */
+{template .Test}
+<div class="{css core-test} {css core-swipe} {css test-element}">
+  <div is class="{css core-element}"></div>
+  <div class="{css external-container}">
+    <div class="{css internal-container}">
+      <div is class="{css core-element core-tap}"></div>
+    </div>
+  </div>
+</div>
+{/template}
+
