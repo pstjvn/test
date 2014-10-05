@@ -389,6 +389,15 @@ check: js/** ../pstj/*/**.js ../smjs/*/**.js $(BUILDDIR)/cssmap-build.js
 	$(JSSOURCES)
 	@echo 'Done'
 
+checkspecific:
+	$(COMPILER) \
+	--compilation_level=ADVANCED \
+	--js="$(BUILDDIR)/cssmap-build.js"  \
+	--js_output_file=/tmp/check.js \
+	--only_closure_dependencies \
+	$(JSSOURCES)
+
+
 checkall: .linted .pstjlint .smjslint check
 
 libdeps: .pstjdeps .smjsdeps
