@@ -340,7 +340,7 @@ $(BUILDDIR)/$(NS).advanced.js: $(advanceddeps) $(BUILDDIR)/filelist.txt
 # requirements:
 # same as the advanced compiled js,
 # the advance compiled css file
-advanced: $(BUILDDIR)/$(NS).build.css $(BUILDDIR)/$(NS).advanced.js
+advanced: $(BUILDDIR)/$(NS).build.css $(BUILDDIR)/$(NS).advanced.js options/*
 	@echo 'Done'
 
 
