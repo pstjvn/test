@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Input material element demo.</title>
+    <!-- Require all deps -->
+    <script src="../../../library/closure/goog/base.js"></script>
+    <script src="../../../templates/deps.js"></script>
+    <script src="../../pstj/deps.js"></script>
+    <script src="../build/deps.js"></script>
+    <script>
+      goog.require('pstj.material.Input');
+      goog.require('pstj.ds.ListItem');
+    </script>
+  </head>
+  <body>
+    <div class="container"></div>
+    <script>
+      // Actual code.
+      var input = new pstj.material.Input();
+      input.name = 'name';
+      input.label = 'Enter your name';
+      input.setModel(new pstj.ds.ListItem({
+        id: 1,
+        name: 'Peter'
+      }));
+      input.render(document.querySelector('.container'));
+    </script>
+  </body>
+</html>

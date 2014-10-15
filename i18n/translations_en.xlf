@@ -2,6 +2,11 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file original="SoyMsgBundle" datatype="x-soy-msg-bundle" xml:space="preserve" source-language="en" target-language="en">
     <body>
+      <trans-unit id="266664346458430650" datatype="html">
+        <source>Invalid input</source>
+        <target/>
+        <note priority="1" from="description">The error message to show to the user</note>
+      </trans-unit>
       <trans-unit id="667379770041603912" datatype="html">
         <source>There seem to be no available items on the thumbdrive. Please make sure the drive is attached properly and try again.</source>
         <target/>

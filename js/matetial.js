@@ -2,6 +2,7 @@ goog.provide('material.app');
 
 goog.require('pstj.material.DrawerPanel');
 goog.require('pstj.material.HeaderPanel');
+goog.require('pstj.material.Input');
 goog.require('pstj.material.Ripple');
 
 
