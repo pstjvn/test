@@ -344,14 +344,14 @@ advanced: $(BUILDDIR)/$(NS).build.css $(BUILDDIR)/$(NS).advanced.js options/*
 	@echo 'Done'
 
 
-$(BUILDDIR)/$(NS).debug.js: $(BUILDDIR)/$(NS)-cssmap.js js/** ../pstj/*/**.js $(TEMPLATE_TMP_DIR)/$(LOCALE)/*.js
+$(BUILDDIR)/$(NS).debug.js: $(BUILDDIR)/$(NS)-cssmap.js $(advanced) $(BUILDDIR)/filelist.txt
 	@echo 'Building debug JS...'
 	$(COMPILER) \
 	--compilation_level=ADVANCED \
 	--debug \
-	--formatting=PRETTY_PRINT
-	--js="$(BUILDDIR)/$(NS)-cssmap.js"  \
-	--js_output_file=$(BUILDDIR)/$(NS).debug.js
+	--formatting=PRETTY_PRINT \
+	--js_output_file=$(BUILDDIR)/$(NS).debug.js \
+	$(FL)
 
 debug: $(BUILDDIR)/$(NS).debug.js
 	@echo 'Done'

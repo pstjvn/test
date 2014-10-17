@@ -1,0 +1,12 @@
+
+// LABEL
+// Input label should be INVISIBLE if
+// there is value inputed ||
+// there is NO value inputed && type is number && its not valud
+
+// UNDERLINE
+// when this is disabled the underline should be set to disabled as
+// well so we can match the class name for disabled.
+
+// when this is focused we want the underline to be set to focused as well
+// so we can make the animation.
